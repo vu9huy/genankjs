@@ -15,7 +15,7 @@
     "check-exports": "attw --pack . --ignore-rules=cjs-resolves-to-esm",
     "test": "vitest run",
     "dev": "vitest",
-    "ci": "npm run build && npm run check-format && npm run check-exports && npm run test"
+    "ci": "yarn build && yarn check-format && yarn check-exports && yarn test"
   },
   "author": "Quan Vu <quan2704vu@gmail.com",
   "license": "MIT",
