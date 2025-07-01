@@ -1,0 +1,32 @@
+{
+  "name": "genankjs",
+  "version": "1.0.0",
+  "description": "generate anki card",
+  "keywords": [
+    "anki",
+    "typescript"
+  ],
+  "homepage": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "format": "prettier --write .",
+    "check-format": "prettier --check .",
+    "check-exports": "attw --pack . --ignore-rules=cjs-resolves-to-esm",
+    "test": "vitest run",
+    "dev": "vitest",
+    "ci": "yarn build && yarn check-format && yarn check-exports && yarn test"
+  },
+  "author": "Quan Vu <quan2704vu@gmail.com",
+  "license": "MIT",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.2",
+    "prettier": "^3.6.2",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  }
+}

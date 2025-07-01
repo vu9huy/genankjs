@@ -1,0 +1,130 @@
+
+Articles
+BookNew
+
+⌘
+K
+FAQ
+Log in
+Sign Up
+←
+All Articles
+How To Create An NPM Package
+Matt Pocock
+Matt Pocock
+Matt is a well-regarded TypeScript expert known for his ability to demystify complex TypeScript concepts.
+In this guide, we'll go through every single step you need to take to publish a package to npm.
+
+This is not a minimal guide. We'll be setting up a fully production-ready package from an empty directory. This will include:
+
+Git for version control
+TypeScript for writing our code and keeping it type-safe
+Prettier for formatting our code
+@arethetypeswrong/cli for checking our exports
+tsup for compiling our TypeScript code into CJS and ESM
+Vitest for running our tests
+GitHub Actions for running our CI process
+Changesets for versioning and publishing our package
+If you want to see the finished product, check out this demo repo.
+
+#
+Video
+If you prefer video content, I've created a video walkthrough of this guide:
+
+
+#
+1. Git
+In this section, we'll create a new git repository, set up a .gitignore, create an initial commit, create a new repository on GitHub, and push our code to GitHub.
+
+#
+1.1: Initialize the repo
+Run the following command to initialize a new git repository:
+
+git init
+#
+1.2: Set up a .gitignore
+Create a .gitignore file in the root of your project and add the following:
+
+node_modules
+#
+1.3: Create an initial commit
+Run the following command to create an initial commit:
+
+git add .
+git commit -m "Initial commit"
+#
+1.4: Create a new repository on GitHub
+Using the GitHub CLI, run the following command to create a new repository. I've chosen the name tt-package-demo for this example:
+
+gh repo create tt-package-demo --source=. --public
+#
+1.5: Push to GitHub
+Run the following command to push your code to GitHub:
+
+git push --set-upstream origin main
+#
+2: package.json
+In this section, we'll create a package.json file, add a license field, create a LICENSE file, and add a README.md file.
+
+#
+2.1: Create a package.json file
+Create a package.json file with these values:
+
+{
+  "name": "tt-package-demo",
+  "version": "1.0.0",
+  "description": "A demo package for Total TypeScript",
+  "keywords": ["demo", "typescript"],
+  "homepage": "https://github.com/mattpocock/tt-package-demo",
+  "bugs": {
+    "url": "https://github.com/mattpocock/tt-package-demo/issues"
+  },
+  "author": "Matt Pocock <team@totaltypescript.com> (https://totaltypescript.com)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattpocock/tt-package-demo.git"
+  },
+  "files": ["dist"],
+  "type": "module"
+}
+name is the name by which people will install your package. It must be unique on npm. You can create organization scopes (such as @total-typescript/demo) for free, these can help make it unique.
+version is the version of your package. It should follow semantic versioning: the 0.0.1 format. Each time you publish a new version, you should increment this number.
+description and keywords are short descriptions of your package. They're listed in searches in the npm registry.
+homepage is the URL of your package's homepage. The GitHub repo is a good default, or a docs site if you have one.
+bugs is the URL where people can report issues with your package.
+author is you! You can add optionally add your email and website. If you have multiple contributors, you can specify them as an array of contributors with the same formatting.
+repository is the URL of your package's repository. This creates a link on the npm registry to your GitHub repo.
+files is an array of files that should be included when people install your package. In this case, we're including the dist folder. README.md, package.json and LICENSE are included by default.
+type is set to module to indicate that your package uses ECMAScript modules, not CommonJS modules.
+#
+2.2: Add the license field
+Add a license field to your package.json. Choose a license here. I've chosen MIT.
+
+{
+  "license": "MIT"
+}
+#
+2.3: Add a LICENSE file
+Create a file called LICENSE (no extension) containing the text of your license. For MIT, this is:
+
+MIT License
+
+Copyright (c) [year] [fullname]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
