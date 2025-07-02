@@ -1,9 +1,12 @@
 {
   "name": "genankjs",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "generate anki card",
   "keywords": [
     "anki",
+    "flashcards",
+    "spaced-repetition",
+    "apkg",
     "typescript"
   ],
   "homepage": "",
@@ -15,6 +18,10 @@
     "check-exports": "attw --pack . --ignore-rules=cjs-resolves-to-esm",
     "test": "vitest run",
     "dev": "vitest",
+    "demo": "tsx scripts/demo.ts",
+    "fresh-demo": "tsx scripts/fresh-demo.ts",
+    "debug-cards": "tsx scripts/debug-cards.ts",
+    "verify-db": "tsx scripts/verify-database.ts",
     "local-release": "changeset version && changeset publish",
     "ci": "yarn build && yarn check-format && yarn check-exports && yarn test",
     "prepublishOnly": "yarn ci"
@@ -28,8 +35,14 @@
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.2",
     "@changesets/cli": "^2.29.5",
+    "@types/better-sqlite3": "^7.6.13",
     "prettier": "^3.6.2",
+    "tsx": "^4.20.3",
     "typescript": "^5.8.3",
     "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.2.0",
+    "jszip": "^3.10.1"
   }
 }
