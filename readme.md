@@ -30,14 +30,14 @@ const pkg = new Package();
 
 // Create a deck
 const deck = new Deck({
-  name: 'Spanish Vocabulary'
+  name: 'Spanish Vocabulary',
 });
 
 // Create notes
 const note = new Note({
   modelId: builtin.BASIC_MODEL.modelId,
   fields: ['Hola', 'Hello'],
-  tags: ['spanish', 'greetings']
+  tags: ['spanish', 'greetings'],
 });
 
 // Add note to deck
@@ -61,7 +61,7 @@ The main container for creating .apkg files.
 import { Package } from 'genankjs';
 
 const pkg = new Package({
-  media: [] // Optional: array of media files
+  media: [], // Optional: array of media files
 });
 
 // Add decks and models
@@ -71,7 +71,7 @@ pkg.addModel(model);
 // Add media files
 pkg.addMedia({
   name: 'audio.mp3',
-  data: audioBuffer
+  data: audioBuffer,
 });
 
 // Generate package
@@ -90,7 +90,7 @@ import { Deck } from 'genankjs';
 const deck = new Deck({
   name: 'My Deck',
   description: 'Optional description',
-  deckId: 123456789 // Optional: custom ID
+  deckId: 123456789, // Optional: custom ID
 });
 
 // Add notes
@@ -113,7 +113,7 @@ const note = new Note({
   modelId: model.modelId,
   fields: ['Front content', 'Back content'],
   tags: ['tag1', 'tag2'],
-  guid: 'optional-custom-guid'
+  guid: 'optional-custom-guid',
 });
 
 // Manipulate fields
@@ -134,17 +134,13 @@ import { Model } from 'genankjs';
 
 const model = new Model({
   name: 'Custom Model',
-  fields: [
-    { name: 'Question' },
-    { name: 'Answer' },
-    { name: 'Hint' }
-  ],
+  fields: [{ name: 'Question' }, { name: 'Answer' }, { name: 'Hint' }],
   templates: [
     {
       name: 'Card 1',
       qfmt: '{{Question}}<br><small>{{Hint}}</small>',
-      afmt: '{{FrontSide}}<hr id="answer">{{Answer}}'
-    }
+      afmt: '{{FrontSide}}<hr id="answer">{{Answer}}',
+    },
   ],
   css: `
     .card {
@@ -154,7 +150,7 @@ const model = new Model({
       color: black;
       background-color: white;
     }
-  `
+  `,
 });
 ```
 
@@ -166,22 +162,22 @@ The library includes several pre-defined models similar to Anki's built-in note 
 import { builtin } from 'genankjs';
 
 // Basic front/back cards
-builtin.BASIC_MODEL
+builtin.BASIC_MODEL;
 
 // Basic with automatic reverse card
-builtin.BASIC_AND_REVERSED_CARD_MODEL
+builtin.BASIC_AND_REVERSED_CARD_MODEL;
 
 // Basic with optional reverse card
-builtin.BASIC_OPTIONAL_REVERSED_CARD_MODEL
+builtin.BASIC_OPTIONAL_REVERSED_CARD_MODEL;
 
 // Basic with typing in the answer
-builtin.BASIC_TYPE_IN_THE_ANSWER_MODEL
+builtin.BASIC_TYPE_IN_THE_ANSWER_MODEL;
 
 // Cloze deletion cards
-builtin.CLOZE_MODEL
+builtin.CLOZE_MODEL;
 
 // Image occlusion
-builtin.IMAGE_OCCLUSION_MODEL
+builtin.IMAGE_OCCLUSION_MODEL;
 ```
 
 ### Using Built-in Models
@@ -189,7 +185,7 @@ builtin.IMAGE_OCCLUSION_MODEL
 ```typescript
 const note = new Note({
   modelId: builtin.BASIC_MODEL.modelId,
-  fields: ['What is the capital of France?', 'Paris']
+  fields: ['What is the capital of France?', 'Paris'],
 });
 
 deck.addNote(note, builtin.BASIC_MODEL);
@@ -216,8 +212,8 @@ const note = new Note({
   modelId: builtin.BASIC_MODEL.modelId,
   fields: [
     'What sound does a cat make? <audio controls><source src="0">[sound:0]</audio>',
-    'Meow <img src="1" style="max-width: 200px;">'
-  ]
+    'Meow <img src="1" style="max-width: 200px;">',
+  ],
 });
 ```
 
@@ -228,10 +224,7 @@ Create fill-in-the-blank style cards:
 ```typescript
 const clozeNote = new Note({
   modelId: builtin.CLOZE_MODEL.modelId,
-  fields: [
-    'The capital of {{c1::France}} is {{c2::Paris}}.',
-    'Geography fact'
-  ]
+  fields: ['The capital of {{c1::France}} is {{c2::Paris}}.', 'Geography fact'],
 });
 
 deck.addNote(clozeNote, builtin.CLOZE_MODEL);
@@ -262,20 +255,20 @@ const model = new Model({
     { name: 'Word' },
     { name: 'Translation' },
     { name: 'Example' },
-    { name: 'Audio' }
+    { name: 'Audio' },
   ],
   templates: [
     {
       name: 'Recognition',
       qfmt: '{{Word}}<br>{{Audio}}',
-      afmt: '{{FrontSide}}<hr id="answer">{{Translation}}<br><em>{{Example}}</em>'
+      afmt: '{{FrontSide}}<hr id="answer">{{Translation}}<br><em>{{Example}}</em>',
     },
     {
-      name: 'Production', 
+      name: 'Production',
       qfmt: '{{Translation}}',
-      afmt: '{{FrontSide}}<hr id="answer">{{Word}}<br>{{Audio}}<br><em>{{Example}}</em>'
-    }
-  ]
+      afmt: '{{FrontSide}}<hr id="answer">{{Word}}<br>{{Audio}}<br><em>{{Example}}</em>',
+    },
+  ],
 });
 ```
 
@@ -286,7 +279,7 @@ const model = new Model({
 const template = {
   name: 'Reverse Card',
   qfmt: '{{#Add Reverse}}{{Back}}{{/Add Reverse}}',
-  afmt: '{{FrontSide}}<hr id="answer">{{Front}}'
+  afmt: '{{FrontSide}}<hr id="answer">{{Front}}',
 };
 ```
 
@@ -365,6 +358,7 @@ MIT License - see LICENSE file for details.
 If Anki shows "notes already present in your collection" and skips importing cards:
 
 **Why this happens:**
+
 - Anki detects duplicates based on the first field content
 - You might already have cards with the same content (e.g., "Hello", "Goodbye")
 - The GUID or checksum matches existing notes
@@ -372,27 +366,31 @@ If Anki shows "notes already present in your collection" and skips importing car
 **Solutions:**
 
 1. **Use unique content** (recommended):
+
 ```bash
 npm run fresh-demo  # Creates cards with guaranteed unique content
 ```
 
 2. **Analyze the duplicate issue**:
+
 ```bash
 npm run analyze-duplicates  # Shows why duplicates are detected
 ```
 
 3. **Force unique GUIDs in your code**:
+
 ```typescript
 import { generateUniqueGuid } from 'genankjs';
 
 const note = new Note({
   modelId: builtin.BASIC_MODEL.modelId,
   fields: ['Your content', 'Your answer'],
-  guid: generateUniqueGuid().toString() // Force unique GUID
+  guid: generateUniqueGuid().toString(), // Force unique GUID
 });
 ```
 
 4. **Use custom model IDs**:
+
 ```typescript
 const customModel = new Model({
   modelId: Date.now(), // Unique timestamp-based ID
@@ -404,15 +402,18 @@ const customModel = new Model({
 ### Common Issues
 
 **"Invalid .apkg file" in Anki**
+
 - Ensure all referenced media files are included in the package
 - Check that model IDs are unique across your package
 - Verify that field references in templates match actual field names
 
 **Large file sizes**
+
 - Use appropriate compression for media files before adding them
 - Consider splitting large decks into multiple packages
 
 **Import errors**
+
 - Make sure you're using a recent version of Anki (2.1+)
 - Check the Anki error logs for specific issues
 

@@ -57,7 +57,7 @@ export class Package {
     try {
       // Create tables
       this.createTables(db);
-      
+
       // Insert data
       this.insertCollectionData(db);
       this.insertModels(db);
@@ -68,10 +68,10 @@ export class Package {
       // Read the database file
       db.close();
       const buffer = readFileSync(tmpPath);
-      
+
       // Clean up
       unlinkSync(tmpPath);
-      
+
       return buffer;
     } catch (error) {
       db.close();
@@ -186,15 +186,21 @@ export class Package {
    */
   private insertCollectionData(db: Database.Database): void {
     const now = ankiTime();
-    const models = this.models.reduce((acc, model) => {
-      acc[model.modelId] = JSON.parse(model.toJson());
-      return acc;
-    }, {} as Record<number, any>);
+    const models = this.models.reduce(
+      (acc, model) => {
+        acc[model.modelId] = JSON.parse(model.toJson());
+        return acc;
+      },
+      {} as Record<number, any>,
+    );
 
-    const decks = this.decks.reduce((acc, deck) => {
-      acc[deck.deckId] = JSON.parse(deck.toJson());
-      return acc;
-    }, {} as Record<number, any>);
+    const decks = this.decks.reduce(
+      (acc, deck) => {
+        acc[deck.deckId] = JSON.parse(deck.toJson());
+        return acc;
+      },
+      {} as Record<number, any>,
+    );
 
     // Add default deck if no decks exist
     if (Object.keys(decks).length === 0) {
@@ -219,12 +225,14 @@ export class Package {
     const conf = {
       nextPos: 1,
       estTimes: true,
-      activeDecks: Object.keys(decks).map(id => parseInt(id)),
+      activeDecks: Object.keys(decks).map((id) => parseInt(id)),
       sortType: 'noteFld',
       timeLim: 0,
       sortBackwards: false,
       addToCur: true,
-      curDeck: Object.keys(decks)[0] ? parseInt(Object.keys(decks)[0] ?? "") : 1,
+      curDeck: Object.keys(decks)[0]
+        ? parseInt(Object.keys(decks)[0] ?? '')
+        : 1,
       newBury: true,
       newSpread: 0,
       dueCounts: true,
@@ -288,7 +296,7 @@ export class Package {
       JSON.stringify(models),
       JSON.stringify(decks),
       JSON.stringify(dconf),
-      '{}'
+      '{}',
     );
   }
 
@@ -333,9 +341,9 @@ export class Package {
           values.sfld,
           values.csum,
           values.flags,
-          values.data
+          values.data,
         );
-        
+
         // Store the mapping for card creation
         noteIdMap.set(values.guid, values.id);
       }
@@ -347,7 +355,10 @@ export class Package {
   /**
    * Insert cards into the database
    */
-  private insertCards(db: Database.Database, noteIdMap: Map<string, number>): void {
+  private insertCards(
+    db: Database.Database,
+    noteIdMap: Map<string, number>,
+  ): void {
     if (this.decks.length === 0) return;
 
     const stmt = db.prepare(`
@@ -363,39 +374,45 @@ export class Package {
         const note = deck.notes[noteIndex]!;
         const noteGuid = note.guid.toString();
         const noteDbId = noteIdMap.get(noteGuid);
-        
+
         if (!noteDbId) {
-          console.error(`Could not find database ID for note GUID: ${noteGuid}`);
+          console.error(
+            `Could not find database ID for note GUID: ${noteGuid}`,
+          );
           continue;
         }
 
         // Find the model for this note to determine number of cards
-        const model = this.models.find(m => m.modelId === note.modelId);
+        const model = this.models.find((m) => m.modelId === note.modelId);
         const templateCount = model ? model.templates.length : 1;
 
         // Create cards for each template
-        for (let templateIndex = 0; templateIndex < templateCount; templateIndex++) {
+        for (
+          let templateIndex = 0;
+          templateIndex < templateCount;
+          templateIndex++
+        ) {
           const cardId = cardIdCounter++;
-          
+
           stmt.run(
-            cardId,           // id
-            noteDbId,         // nid (note database ID)
-            deck.deckId,      // did
-            templateIndex,    // ord
-            ankiTime(),       // mod
-            -1,               // usn
-            0,                // type (new)
-            0,                // queue (new)
-            dueCounter++,     // due (incremental position)
-            0,                // ivl
-            0,                // factor
-            0,                // reps
-            0,                // lapses
-            0,                // left
-            0,                // odue
-            0,                // odid
-            0,                // flags
-            ''                // data
+            cardId, // id
+            noteDbId, // nid (note database ID)
+            deck.deckId, // did
+            templateIndex, // ord
+            ankiTime(), // mod
+            -1, // usn
+            0, // type (new)
+            0, // queue (new)
+            dueCounter++, // due (incremental position)
+            0, // ivl
+            0, // factor
+            0, // reps
+            0, // lapses
+            0, // left
+            0, // odue
+            0, // odid
+            0, // flags
+            '', // data
           );
         }
       }
@@ -407,7 +424,7 @@ export class Package {
    */
   private createMediaJson(): string {
     const mediaMap: Record<string, string> = {};
-    
+
     this.media.forEach((file, index) => {
       mediaMap[index.toString()] = file.name;
     });
@@ -428,26 +445,26 @@ export class Package {
    */
   async writeToBuffer(): Promise<Buffer> {
     const zip = new JSZip();
-    
+
     // Add the database
     const dbBuffer = this.createDatabase();
     zip.file('collection.anki2', dbBuffer);
-    
+
     // Add media files
     this.media.forEach((file, index) => {
       zip.file(index.toString(), file.data);
     });
-    
+
     // Add media.json
     zip.file('media', this.createMediaJson());
-    
+
     // Generate the zip
     const zipBuffer = await zip.generateAsync({
       type: 'nodebuffer',
       compression: 'DEFLATE',
-      compressionOptions: { level: 6 }
+      compressionOptions: { level: 6 },
     });
-    
+
     return zipBuffer;
   }
 }

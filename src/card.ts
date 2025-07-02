@@ -29,7 +29,7 @@ export class Card {
     this.mod = ankiTime();
     this.usn = -1;
     this.type = 0; // New card
-    this.queue = 0; // New queue  
+    this.queue = 0; // New queue
     this.due = duePosition; // Due position for new cards (should be incremental)
     this.ivl = 0; // No interval yet
     this.factor = 0; // No factor yet

@@ -1,5 +1,10 @@
 import type { NoteConfig } from './types.js';
-import { generateUniqueGuid, ankiTime, joinFields, formatTags } from './utils.js';
+import {
+  generateUniqueGuid,
+  ankiTime,
+  joinFields,
+  formatTags,
+} from './utils.js';
 
 export class Note {
   public modelId: number;
@@ -32,7 +37,7 @@ export class Note {
    */
   getField(index: number): string {
     if (index >= 0 && index < this.fields.length) {
-      return this.fields[index] ?? "";
+      return this.fields[index] ?? '';
     }
     throw new Error(`Field index ${index} is out of range`);
   }
@@ -86,7 +91,7 @@ export class Note {
   } {
     // Generate a proper integer ID for the note
     const noteId = Date.now() + Math.floor(Math.random() * 1000000);
-    
+
     return {
       id: noteId,
       guid: this.guid.toString(),

@@ -24,14 +24,14 @@ export class Deck {
    */
   addNote(note: Note, model?: Model): void {
     this.notes.push(note);
-    
+
     // Get the note ID that will be used in the database
     const noteValues = note.toSqlValues();
     const noteId = noteValues.id.toString();
-    
+
     // Calculate due position for new cards (incremental)
     const duePosition = this.cards.length + 1;
-    
+
     // Generate cards for each template in the model
     if (model) {
       for (let i = 0; i < model.templates.length; i++) {

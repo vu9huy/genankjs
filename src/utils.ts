@@ -66,5 +66,7 @@ export function generateDeckId(): number {
  * Generate a random model ID
  */
 export function generateModelId(): number {
-  return Math.floor(Date.now() / 1000) * 1000 + Math.floor(Math.random() * 1000);
+  return (
+    Math.floor(Date.now() / 1000) * 1000 + Math.floor(Math.random() * 1000)
+  );
 }
