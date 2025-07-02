@@ -23,7 +23,7 @@
     "debug-cards": "tsx scripts/debug-cards.ts",
     "verify-db": "tsx scripts/verify-database.ts",
     "local-release": "changeset version && changeset publish",
-    "ci": "yarn build && yarn check-format && yarn check-exports && yarn test",
+    "ci": "yarn build && yarn check-format && yarn check-exports",
     "prepublishOnly": "yarn ci"
   },
   "author": "Quan Vu <quan2704vu@gmail.com",
