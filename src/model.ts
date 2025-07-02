@@ -42,7 +42,7 @@ export class Model {
       afmt: template.afmt,
       bqfmt: template.bqfmt ?? '',
       bafmt: template.bafmt ?? '',
-      did: template.did ?? null,
+      did: template.did ?? undefined,
       bfont: template.bfont ?? '',
       bsize: template.bsize ?? 0,
       ord: template.ord ?? index,
