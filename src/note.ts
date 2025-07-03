@@ -16,7 +16,7 @@ export class Note {
   constructor(config: NoteConfig) {
     this.modelId = config.modelId ?? 0;
     this.fields = [...config.fields];
-    this.tags = config.tags ?? [];
+    this.tags = [...(config.tags ?? '')];
     this.guid = config.guid ? BigInt(config.guid) : generateUniqueGuid();
     this.sort = 0;
   }

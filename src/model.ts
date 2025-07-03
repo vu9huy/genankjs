@@ -51,22 +51,22 @@ export class Model {
 
   private getDefaultCss(): string {
     return `.card {
-  font-family: arial;
-  font-size: 20px;
-  text-align: center;
-  color: black;
-  background-color: white;
-}`;
+      font-family: arial;
+      font-size: 20px;
+      text-align: center;
+      color: black;
+      background-color: white;
+    }`;
   }
 
   private getDefaultLatexPre(): string {
     return `\\documentclass[12pt]{article}
-\\special{papersize=3in,5in}
-\\usepackage[utf8]{inputenc}
-\\usepackage{amssymb,amsmath}
-\\pagestyle{empty}
-\\setlength{\\parindent}{0in}
-\\begin{document}`;
+      \\special{papersize=3in,5in}
+      \\usepackage[utf8]{inputenc}
+      \\usepackage{amssymb,amsmath}
+      \\pagestyle{empty}
+      \\setlength{\\parindent}{0in}
+      \\begin{document}`;
   }
 
   private getDefaultLatexPost(): string {
