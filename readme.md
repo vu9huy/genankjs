@@ -36,7 +36,7 @@ const pkg = new Package();
 // Create a deck
 const deck = new Deck({
   name: 'Spanish Vocabulary',
-  description: 'Basic Spanish words and phrases'
+  description: 'Basic Spanish words and phrases',
 });
 
 // Create notes with the basic model
@@ -44,13 +44,13 @@ const notes = [
   new Note({
     modelId: builtin.BASIC_MODEL.modelId,
     fields: ['Hola', 'Hello'],
-    tags: ['spanish', 'greetings']
+    tags: ['spanish', 'greetings'],
   }),
   new Note({
     modelId: builtin.BASIC_MODEL.modelId,
     fields: ['Gracias', 'Thank you'],
-    tags: ['spanish', 'politeness']
-  })
+    tags: ['spanish', 'politeness'],
+  }),
 ];
 
 // Add notes to deck
@@ -85,7 +85,7 @@ The main container for creating .apkg files.
 import { Package } from 'genankjs';
 
 const pkg = new Package({
-  media: [] // Optional: array of media files
+  media: [], // Optional: array of media files
 });
 
 // Add decks and models
@@ -95,7 +95,7 @@ pkg.addModel(model);
 // Add media files
 pkg.addMedia({
   name: 'audio.mp3',
-  data: audioBuffer
+  data: audioBuffer,
 });
 
 // Generate package
@@ -114,7 +114,7 @@ import { Deck } from 'genankjs';
 const deck = new Deck({
   name: 'My Deck',
   description: 'Optional description',
-  deckId: 123456789 // Optional: custom ID
+  deckId: 123456789, // Optional: custom ID
 });
 
 // Add notes
@@ -137,7 +137,7 @@ const note = new Note({
   modelId: model.modelId,
   fields: ['Front content', 'Back content'],
   tags: ['tag1', 'tag2'],
-  guid: 'optional-custom-guid'
+  guid: 'optional-custom-guid',
 });
 
 // Manipulate fields
@@ -158,16 +158,14 @@ import { Model } from 'genankjs';
 
 const model = new Model({
   name: 'Custom Model',
-  fields: [
-    { name: 'Question' },
-    { name: 'Answer' },
-    { name: 'Hint' }
+  fields: [{ name: 'Question' }, { name: 'Answer' }, { name: 'Hint' }],
+  templates: [
+    {
+      name: 'Card 1',
+      qfmt: '{{Question}}<br><small>{{Hint}}</small>',
+      afmt: '{{FrontSide}}<hr id="answer">{{Answer}}',
+    },
   ],
-  templates: [{
-    name: 'Card 1',
-    qfmt: '{{Question}}<br><small>{{Hint}}</small>',
-    afmt: '{{FrontSide}}<hr id="answer">{{Answer}}'
-  }],
   css: `
     .card {
       font-family: Arial;
@@ -176,7 +174,7 @@ const model = new Model({
       color: black;
       background-color: white;
     }
-  `
+  `,
 });
 ```
 
@@ -184,14 +182,14 @@ const model = new Model({
 
 The library includes several pre-defined models similar to Anki's built-in note types:
 
-| Model | Description | Use Case |
-|-------|-------------|----------|
-| `BASIC_MODEL` | Simple front/back cards | Basic vocabulary, definitions |
-| `BASIC_AND_REVERSED_CARD_MODEL` | Creates both directions automatically | Language learning |
-| `BASIC_OPTIONAL_REVERSED_CARD_MODEL` | Optional reverse cards | Flexible vocabulary |
-| `BASIC_TYPE_IN_THE_ANSWER_MODEL` | Requires typing the answer | Active recall practice |
-| `CLOZE_MODEL` | Fill-in-the-blank cards | Context-based learning |
-| `IMAGE_OCCLUSION_MODEL` | Hide parts of images | Visual learning |
+| Model                                | Description                           | Use Case                      |
+| ------------------------------------ | ------------------------------------- | ----------------------------- |
+| `BASIC_MODEL`                        | Simple front/back cards               | Basic vocabulary, definitions |
+| `BASIC_AND_REVERSED_CARD_MODEL`      | Creates both directions automatically | Language learning             |
+| `BASIC_OPTIONAL_REVERSED_CARD_MODEL` | Optional reverse cards                | Flexible vocabulary           |
+| `BASIC_TYPE_IN_THE_ANSWER_MODEL`     | Requires typing the answer            | Active recall practice        |
+| `CLOZE_MODEL`                        | Fill-in-the-blank cards               | Context-based learning        |
+| `IMAGE_OCCLUSION_MODEL`              | Hide parts of images                  | Visual learning               |
 
 ### Example Usage
 
@@ -201,16 +199,13 @@ import { builtin } from 'genankjs';
 // Basic cards
 const basicNote = new Note({
   modelId: builtin.BASIC_MODEL.modelId,
-  fields: ['What is the capital of France?', 'Paris']
+  fields: ['What is the capital of France?', 'Paris'],
 });
 
 // Cloze deletion
 const clozeNote = new Note({
   modelId: builtin.CLOZE_MODEL.modelId,
-  fields: [
-    'The capital of {{c1::France}} is {{c2::Paris}}.',
-    'Geography fact'
-  ]
+  fields: ['The capital of {{c1::France}} is {{c2::Paris}}.', 'Geography fact'],
 });
 
 // Add to deck
@@ -242,8 +237,8 @@ const note = new Note({
   modelId: builtin.BASIC_MODEL.modelId,
   fields: [
     'How do you pronounce "bonjour"? [sound:0]',
-    'Bonjour <img src="1" style="max-width: 200px;">'
-  ]
+    'Bonjour <img src="1" style="max-width: 200px;">',
+  ],
 });
 ```
 
@@ -264,19 +259,19 @@ const languageModel = new Model({
     { name: 'Word' },
     { name: 'Translation' },
     { name: 'Example' },
-    { name: 'Audio' }
+    { name: 'Audio' },
   ],
   templates: [
     {
       name: 'Recognition',
       qfmt: '{{Word}}<br>{{Audio}}',
-      afmt: '{{FrontSide}}<hr id="answer">{{Translation}}<br><em>{{Example}}</em>'
+      afmt: '{{FrontSide}}<hr id="answer">{{Translation}}<br><em>{{Example}}</em>',
     },
     {
       name: 'Production',
       qfmt: '{{Translation}}',
-      afmt: '{{FrontSide}}<hr id="answer">{{Word}}<br>{{Audio}}<br><em>{{Example}}</em>'
-    }
+      afmt: '{{FrontSide}}<hr id="answer">{{Word}}<br>{{Audio}}<br><em>{{Example}}</em>',
+    },
   ],
   css: `
     .card {
@@ -289,7 +284,7 @@ const languageModel = new Model({
       border-radius: 10px;
     }
     .example { font-style: italic; color: #ccc; }
-  `
+  `,
 });
 ```
 
@@ -300,7 +295,7 @@ const languageModel = new Model({
 const template = {
   name: 'Reverse Card',
   qfmt: '{{#Add Reverse}}{{Back}}{{/Add Reverse}}',
-  afmt: '{{FrontSide}}<hr id="answer">{{Front}}'
+  afmt: '{{FrontSide}}<hr id="answer">{{Front}}',
 };
 ```
 
@@ -315,11 +310,14 @@ const csvData = readFileSync('vocabulary.csv', 'utf8');
 const records = parse(csvData, { columns: true });
 
 // Create notes from CSV
-const notes = records.map(record => new Note({
-  modelId: builtin.BASIC_MODEL.modelId,
-  fields: [record.word, record.translation],
-  tags: record.tags?.split(',') || []
-}));
+const notes = records.map(
+  (record) =>
+    new Note({
+      modelId: builtin.BASIC_MODEL.modelId,
+      fields: [record.word, record.translation],
+      tags: record.tags?.split(',') || [],
+    }),
+);
 
 // Add all notes to deck
 deck.addNotes(notes, builtin.BASIC_MODEL);
@@ -341,10 +339,10 @@ interface Field {
 
 interface Template {
   name: string;
-  qfmt: string;        // Question format
-  afmt: string;        // Answer format
-  bqfmt?: string;      // Browser question format
-  bafmt?: string;      // Browser answer format
+  qfmt: string; // Question format
+  afmt: string; // Answer format
+  bqfmt?: string; // Browser question format
+  bafmt?: string; // Browser answer format
 }
 
 interface MediaFile {
@@ -405,6 +403,7 @@ npm run check-format # Check formatting
 **Problem**: Anki shows "notes already present in your collection" and skips importing cards.
 
 **Why this happens**:
+
 - Anki detects duplicates based on the first field content
 - You might already have cards with the same content
 - The GUID or checksum matches existing notes
@@ -412,26 +411,29 @@ npm run check-format # Check formatting
 **Solutions**:
 
 1. **Use unique content** (recommended):
+
 ```typescript
 const note = new Note({
   modelId: builtin.BASIC_MODEL.modelId,
   fields: [`Hello - ${Date.now()}`, 'Hello'],
-  tags: ['unique']
+  tags: ['unique'],
 });
 ```
 
 2. **Force unique GUIDs**:
+
 ```typescript
 import { generateUniqueGuid } from 'genankjs';
 
 const note = new Note({
   modelId: builtin.BASIC_MODEL.modelId,
   fields: ['Hello', 'Hello'],
-  guid: generateUniqueGuid().toString()
+  guid: generateUniqueGuid().toString(),
 });
 ```
 
 3. **Use custom model IDs**:
+
 ```typescript
 const customModel = new Model({
   modelId: Date.now(), // Unique timestamp-based ID
@@ -442,12 +444,12 @@ const customModel = new Model({
 
 ### Common Issues
 
-| Issue | Solution |
-|-------|----------|
+| Issue                | Solution                                                       |
+| -------------------- | -------------------------------------------------------------- |
 | "Invalid .apkg file" | Ensure all media files are included and field references match |
-| Large file sizes | Compress media files before adding |
-| Import errors | Use Anki 2.1+ and check error logs |
-| Missing cards | Verify model templates and field names |
+| Large file sizes     | Compress media files before adding                             |
+| Import errors        | Use Anki 2.1+ and check error logs                             |
+| Missing cards        | Verify model templates and field names                         |
 
 ### Getting Help
 
