@@ -1,5 +1,11 @@
 # genankjs
 
+## 1.0.5
+
+### Patch Changes
+
+- fc5c70e: update readme
+
 ## 1.0.4
 
 ### Patch Changes
