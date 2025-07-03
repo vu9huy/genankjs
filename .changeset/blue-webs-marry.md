@@ -1,5 +1,0 @@
----
-'genankjs': patch
----
-
-Add test
