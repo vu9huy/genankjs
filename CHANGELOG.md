@@ -1,5 +1,11 @@
 # genankjs
 
+## 1.0.4
+
+### Patch Changes
+
+- 1ad1971: remove test result
+
 ## 1.0.3
 
 ### Patch Changes
