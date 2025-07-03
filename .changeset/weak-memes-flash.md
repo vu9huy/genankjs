@@ -1,0 +1,5 @@
+---
+'genankjs': patch
+---
+
+update readme
